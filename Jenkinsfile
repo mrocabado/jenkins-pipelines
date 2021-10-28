@@ -23,7 +23,7 @@ def getChangeCount() {
 	
 	def totalCountOfChanges = 0
 	for (int i = 0; i < changeSets.size(); i++) {
-		echo "*** changeSet #${i} has &{changeSets[i].items.length} changes/commits"
+		echo "*** changeSet #${i} of kind ${changeSets[i].kind} has ${changeSets[i].items.length} changes/commits"
         totalCountOfChanges += changeSets[i].items.length
     }
 	
