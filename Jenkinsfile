@@ -12,3 +12,10 @@ node {
         echo 'Deploying....'
     }
 }
+
+
+@NonCPS
+def getChangeCount() {
+    def changeSets = currentBuild.changeSets
+	echo "currentBuild.changeSets.size() :\n${changeSets.size()}"
+}
