@@ -19,5 +19,13 @@ node {
 @NonCPS
 def getChangeCount() {
     def changeSets = currentBuild.changeSets
-	echo "currentBuild.changeSets.size() :\n${changeSets.size()}"
+	echo "*** currentBuild.changeSets.size() : ${changeSets.size()} ***"
+	
+	def totalCountOfChanges = 0
+	for (int i = 0; i < changeLogSets.size(); i++) {
+		echo "*** changeSet #${i} has &{changeSets[i].items.length} changes/commits"
+        totalCountOfChanges += changeSets[i].items.length
+    }
+	
+	echo "*** Total number of changes ${totalCountOfChanges}"
 }
