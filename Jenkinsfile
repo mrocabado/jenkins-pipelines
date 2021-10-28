@@ -22,7 +22,7 @@ def getChangeCount() {
 	echo "*** currentBuild.changeSets.size() : ${changeSets.size()} ***"
 	
 	def totalCountOfChanges = 0
-	for (int i = 0; i < changeLogSets.size(); i++) {
+	for (int i = 0; i < changeSets.size(); i++) {
 		echo "*** changeSet #${i} has &{changeSets[i].items.length} changes/commits"
         totalCountOfChanges += changeSets[i].items.length
     }
