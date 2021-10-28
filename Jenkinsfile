@@ -1,7 +1,7 @@
 node {
     stage('Checkout') {
         echo 'Checkout....'
-		git credentialsId: 'git-ssh', url: 'git@github.com:mrocabado/jenkins-pipelines.git'
+		git credentialsId: 'git-ssh', branch: 'main', url: 'git@github.com:mrocabado/jenkins-pipelines.git'
 		getChangeCount()
     }
     stage('Build') {
