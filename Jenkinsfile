@@ -1,6 +1,7 @@
 node {
     stage('Checkout') {
         echo 'Checkout....'
+		getChangeCount()
     }
     stage('Build') {
         echo 'Building....'
