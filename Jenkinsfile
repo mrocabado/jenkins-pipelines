@@ -1,4 +1,4 @@
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.ThreadLocalRandom
 
 node {
     stage('Checkout') {
@@ -14,7 +14,7 @@ node {
         echo 'Building....'
     }
     stage('Test') {
-		def rdn = ThreadLocalRandom.nextDouble()
+		def rdn = ThreadLocalRandom.current().nextDouble()
 		echo 'Testing....random = ${rdn}'
 		if ( rdn > 0.5 ) {
 			currentBuild.result = 'FAILURE'
