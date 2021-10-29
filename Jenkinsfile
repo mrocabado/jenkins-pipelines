@@ -16,7 +16,8 @@ node {
     stage('Test') {
 		double rdn = ThreadLocalRandom.current().nextDouble()
 		echo "Testing....random = ${rdn}"
-		if ( rdn > 0.5 ) {
+		if ( rdn > 0.7 ) {
+			echo "Failing Job"
 			currentBuild.result = 'FAILURE'
 		}
     }
