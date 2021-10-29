@@ -20,7 +20,8 @@ node {
 		}
     }
     stage('Do nothing') {
-		delayMillis(ThreadLocalRandom.current().nextInt(1000, 5000)
+		echo 'Waiting....'
+		delayMillis(ThreadLocalRandom.current().nextInt(1000, 5000))
     }
     stage('Deploy') {
         echo 'Deploying....'
