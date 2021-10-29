@@ -14,8 +14,9 @@ node {
         echo 'Building....'
     }
     stage('Test') {
-        echo 'Testing....'
-		if ( ThreadLocalRandom.nextDouble() > 0.5 ) {
+		def rdn = ThreadLocalRandom.nextDouble()
+		echo 'Testing....random = ${rdn}'
+		if ( rdn > 0.5 ) {
 			currentBuild.result = 'FAILURE'
 		}
     }
