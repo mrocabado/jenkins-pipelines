@@ -21,7 +21,12 @@ node {
     }
     stage('Do nothing') {
 		echo 'Waiting....'
-		delayMillis(ThreadLocalRandom.current().nextInt(1000, 5000))
+		
+        try {
+            Thread.sleep(delayMillis(ThreadLocalRandom.current().nextInt(1000, 5000)));
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();  //preserve the fact that this thread was interrupted
+        }
     }
     stage('Deploy') {
         echo 'Deploying....'
@@ -32,7 +37,7 @@ node {
 
 @NonCPS
 def getCommitCount() {
-    def changeSets = /.changeSets
+    def changeSets = currentBuild.changeSets
 	echo "*** currentBuild.changeSets.size() : ${changeSets.size()} ***"
 	
 	def commitCount = 0
@@ -44,14 +49,3 @@ def getCommitCount() {
 	echo "*** Total number of changes ${commitCount}"
 	return commitCount
 }
-
-
-
-def delayMillis(long millis) {
-	try {
-		Thread.sleep(millis);
-	} catch (InterruptedException e) {
-		Thread.currentThread().interrupt();  //preserve the fact that this thread was interrupted
-	}
-}
-	
