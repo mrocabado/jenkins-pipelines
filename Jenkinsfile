@@ -1,3 +1,5 @@
+import java.util.concurrent.ThreadLocalRandom;
+
 node {
     stage('Checkout') {
         echo 'Checkout....'
@@ -13,19 +15,23 @@ node {
     }
     stage('Test') {
         echo 'Testing....'
+		if ( ThreadLocalRandom.nextDouble() > 0.5 ) {
+			currentBuild.result = 'FAILURE'
+		}
     }
     stage('Do nothing') {
- 
+		delayMillis(ThreadLocalRandom.current().nextInt(1000, 5000)
     }
     stage('Deploy') {
         echo 'Deploying....'
+		
     }	
 }
 
 
 @NonCPS
 def getCommitCount() {
-    def changeSets = currentBuild.changeSets
+    def changeSets = /.changeSets
 	echo "*** currentBuild.changeSets.size() : ${changeSets.size()} ***"
 	
 	def commitCount = 0
@@ -37,3 +43,14 @@ def getCommitCount() {
 	echo "*** Total number of changes ${commitCount}"
 	return commitCount
 }
+
+
+
+def delayMillis(long millis) {
+	try {
+		Thread.sleep(millis);
+	} catch (InterruptedException e) {
+		Thread.currentThread().interrupt();  //preserve the fact that this thread was interrupted
+	}
+}
+	
