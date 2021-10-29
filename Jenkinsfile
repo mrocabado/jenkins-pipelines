@@ -14,7 +14,7 @@ node {
         echo 'Building....'
     }
     stage('Test') {
-		def rdn = ThreadLocalRandom.current().nextDouble()
+		rdn = ThreadLocalRandom.current().nextDouble()
 		echo 'Testing....random = ${rdn}'
 		if ( rdn > 0.5 ) {
 			currentBuild.result = 'FAILURE'
@@ -24,7 +24,7 @@ node {
 		echo 'Waiting....'
 		
         try {
-            Thread.sleep(delayMillis(ThreadLocalRandom.current().nextInt(1000, 5000)));
+            Thread.sleep(ThreadLocalRandom.current().nextInt(1000, 5000))
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();  //preserve the fact that this thread was interrupted
         }
