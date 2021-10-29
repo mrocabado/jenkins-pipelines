@@ -3,7 +3,8 @@ node {
         echo 'Checkout....'
 		//git credentialsId: 'git-ssh', branch: 'main', url: 'git@github.com:mrocabado/jenkins-pipelines.git'
 		commitCount = getCommitCount()
-		datadog(collectLogs: false, tags: ["commit_count:${commitCount}"]){
+		changeVolume = commitCount == 0 ? 'none' : (commitCount == 1 ? 'single' : 'multiple' )
+		datadog(collectLogs: false, tags: ["commit_count:${commitCount}", "change_volume:${changeVolume}"]){
 			echo 'Attaching commit_count tag....'
 		}
     }
