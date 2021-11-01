@@ -9,11 +9,14 @@ node {
 		datadog(collectLogs: false, tags: ["commit_count:${commitCount}", "change_volume:${changeVolume}"]){
 			echo 'Attaching commit_count tag....'
 		}
+		delayByMillis()
     }
     stage('Build') {
         echo 'Building....'
+		delayByMillis()
     }
     stage('Test') {
+		delayByMillis()
 		double rdn = ThreadLocalRandom.current().nextDouble()
 		echo "Testing....random = ${rdn}"
 		if ( rdn > 0.6 ) {
@@ -24,15 +27,17 @@ node {
     stage('Do nothing') {
 		echo 'Waiting....'
 		
-        try {
-            Thread.sleep(ThreadLocalRandom.current().nextInt(1000, 5000))
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();  //preserve the fact that this thread was interrupted
-        }
+		delayByMillis()
     }
     stage('Deploy') {
-        echo 'Deploying....'
-		
+        echo 'Deploying....'		
+		delayByMillis()
+		double rdn = ThreadLocalRandom.current().nextDouble()
+		echo "Testing....random = ${rdn}"
+		if ( rdn > 0.65 ) {
+			echo "Failing Job"
+			currentBuild.result = 'FAILURE'
+		}		
     }	
 }
 
@@ -50,4 +55,12 @@ def getCommitCount() {
 	
 	echo "*** Total number of changes ${commitCount}"
 	return commitCount
+}
+
+def delayByMillis() {
+	try {
+		Thread.sleep(ThreadLocalRandom.current().nextInt(1000, 3000))
+	} catch (InterruptedException e) {
+		Thread.currentThread().interrupt();  //preserve the fact that this thread was interrupted
+	}
 }
