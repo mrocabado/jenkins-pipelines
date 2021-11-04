@@ -13,6 +13,10 @@ node {
     }
     stage('Build') {
         echo 'Building....'
+		response = httpRequest "https://postman-echo.com/get"
+		echo "Status: ${response.status}"
+		echo "Response: ${response.content}"
+
 		delayByMillis()
     }
     stage('Test') {
@@ -25,8 +29,7 @@ node {
 		}
     }
     stage('Do nothing') {
-		echo 'Waiting....'
-		
+		echo 'Waiting....'		
 		delayByMillis()
     }
     stage('Deploy') {
